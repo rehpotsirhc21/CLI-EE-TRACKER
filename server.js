@@ -120,7 +120,7 @@ function viewEmployeesByDepartment() {
     getDept(deptChoices);
   });
 }
-// see all departments
+
 function getDept(deptChoices) {
   inquirer
     .prompt([
@@ -153,6 +153,7 @@ function getDept(deptChoices) {
     });
 }
 
+//view all roles
 function viewRoles() {
   let query = `SELECT * FROM role`;
   connection.query(query, (err, res) => {
@@ -169,6 +170,7 @@ function viewRoles() {
   });
 }
 
+//view all departments
 function viewDepartments() {
   let query = `SELECT * FROM department`;
   connection.query(query, (err, res) => {
@@ -328,14 +330,13 @@ function getUpdatedRole(employee, roleChoices) {
       },
     ])
     .then((res) => {
-      const employeeChoice = res.employee
-      const newRole = res.role
+      const employeeChoice = res.employee;
+      const newRole = res.role;
       let query = `UPDATE employee SET role_id = "${newRole}" WHERE id = ${employeeChoice}`;
       connection.query(query, [res.role, res.employee], (err, res) => {
         if (err) throw err;
-        
       });
-      console.table(res)
+      console.table(res);
       firstPrompt();
     });
 }
